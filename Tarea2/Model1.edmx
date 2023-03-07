@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Edificio">
+          <Key>
+            <PropertyRef Name="Edificio_Id" />
+          </Key>
+          <Property Name="Edificio_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="Empleado_Id" />
+          </Key>
+          <Property Name="Empleado_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Identificacion" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar(max)" Nullable="false" />
+          <Property Name="Apellido1" Type="varchar(max)" Nullable="false" />
+          <Property Name="Apellido2" Type="varchar(max)" Nullable="false" />
+          <Property Name="FechaNacimiento" Type="date" Nullable="false" />
+          <Property Name="FechaSalida" Type="date" />
+        </EntityType>
+        <EntityType Name="EmpleadoEdificioProfesion">
+          <Key>
+            <PropertyRef Name="Cargo_Id" />
+          </Key>
+          <Property Name="Cargo_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Empleado_Id" Type="int" />
+          <Property Name="Edificio_Id" Type="int" />
+          <Property Name="Profesion_Id" Type="int" />
+          <Property Name="IsAcenso" Type="bit" Nullable="false" />
+          <Property Name="Fecha" Type="date" />
+        </EntityType>
+        <EntityType Name="Profesion">
+          <Key>
+            <PropertyRef Name="Profesion_Id" />
+          </Key>
+          <Property Name="Profesion_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar(max)" Nullable="false" />
+          <Property Name="TipoProfesion_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="TipoProfesional">
+          <Key>
+            <PropertyRef Name="TipoProfesional_Id" />
+          </Key>
+          <Property Name="TipoProfesional_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar(max)" />
+          <Property Name="Salario" Type="money" />
+        </EntityType>
+        <Association Name="FK__EmpleadoE__Edifi__32AB8735">
+          <End Role="Edificio" Type="Self.Edificio" Multiplicity="0..1" />
+          <End Role="EmpleadoEdificioProfesion" Type="Self.EmpleadoEdificioProfesion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Edificio">
+              <PropertyRef Name="Edificio_Id" />
+            </Principal>
+            <Dependent Role="EmpleadoEdificioProfesion">
+              <PropertyRef Name="Edificio_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmpleadoE__Emple__31B762FC">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
+          <End Role="EmpleadoEdificioProfesion" Type="Self.EmpleadoEdificioProfesion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Empleado_Id" />
+            </Principal>
+            <Dependent Role="EmpleadoEdificioProfesion">
+              <PropertyRef Name="Empleado_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmpleadoE__Profe__339FAB6E">
+          <End Role="Profesion" Type="Self.Profesion" Multiplicity="0..1" />
+          <End Role="EmpleadoEdificioProfesion" Type="Self.EmpleadoEdificioProfesion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profesion">
+              <PropertyRef Name="Profesion_Id" />
+            </Principal>
+            <Dependent Role="EmpleadoEdificioProfesion">
+              <PropertyRef Name="Profesion_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Profesion__TipoP__2EDAF651">
+          <End Role="TipoProfesional" Type="Self.TipoProfesional" Multiplicity="0..1" />
+          <End Role="Profesion" Type="Self.Profesion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoProfesional">
+              <PropertyRef Name="TipoProfesional_Id" />
+            </Principal>
+            <Dependent Role="Profesion">
+              <PropertyRef Name="TipoProfesion_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Edificio" EntityType="Self.Edificio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmpleadoEdificioProfesion" EntityType="Self.EmpleadoEdificioProfesion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profesion" EntityType="Self.Profesion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoProfesional" EntityType="Self.TipoProfesional" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__EmpleadoE__Edifi__32AB8735" Association="Self.FK__EmpleadoE__Edifi__32AB8735">
+            <End Role="Edificio" EntitySet="Edificio" />
+            <End Role="EmpleadoEdificioProfesion" EntitySet="EmpleadoEdificioProfesion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmpleadoE__Emple__31B762FC" Association="Self.FK__EmpleadoE__Emple__31B762FC">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="EmpleadoEdificioProfesion" EntitySet="EmpleadoEdificioProfesion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmpleadoE__Profe__339FAB6E" Association="Self.FK__EmpleadoE__Profe__339FAB6E">
+            <End Role="Profesion" EntitySet="Profesion" />
+            <End Role="EmpleadoEdificioProfesion" EntitySet="EmpleadoEdificioProfesion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Profesion__TipoP__2EDAF651" Association="Self.FK__Profesion__TipoP__2EDAF651">
+            <End Role="TipoProfesional" EntitySet="TipoProfesional" />
+            <End Role="Profesion" EntitySet="Profesion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Edificio">
+          <Key>
+            <PropertyRef Name="Edificio_Id" />
+          </Key>
+          <Property Name="Edificio_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="EmpleadoEdificioProfesions" Relationship="Self.FK__EmpleadoE__Edifi__32AB8735" FromRole="Edificio" ToRole="EmpleadoEdificioProfesion" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="Empleado_Id" />
+          </Key>
+          <Property Name="Empleado_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Identificacion" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellido1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellido2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FechaSalida" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="EmpleadoEdificioProfesions" Relationship="Self.FK__EmpleadoE__Emple__31B762FC" FromRole="Empleado" ToRole="EmpleadoEdificioProfesion" />
+        </EntityType>
+        <EntityType Name="EmpleadoEdificioProfesion">
+          <Key>
+            <PropertyRef Name="Cargo_Id" />
+          </Key>
+          <Property Name="Cargo_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Empleado_Id" Type="Int32" />
+          <Property Name="Edificio_Id" Type="Int32" />
+          <Property Name="Profesion_Id" Type="Int32" />
+          <Property Name="IsAcenso" Type="Boolean" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Edificio" Relationship="Self.FK__EmpleadoE__Edifi__32AB8735" FromRole="EmpleadoEdificioProfesion" ToRole="Edificio" />
+          <NavigationProperty Name="Empleado" Relationship="Self.FK__EmpleadoE__Emple__31B762FC" FromRole="EmpleadoEdificioProfesion" ToRole="Empleado" />
+          <NavigationProperty Name="Profesion" Relationship="Self.FK__EmpleadoE__Profe__339FAB6E" FromRole="EmpleadoEdificioProfesion" ToRole="Profesion" />
+        </EntityType>
+        <EntityType Name="Profesion">
+          <Key>
+            <PropertyRef Name="Profesion_Id" />
+          </Key>
+          <Property Name="Profesion_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TipoProfesion_Id" Type="Int32" />
+          <NavigationProperty Name="EmpleadoEdificioProfesions" Relationship="Self.FK__EmpleadoE__Profe__339FAB6E" FromRole="Profesion" ToRole="EmpleadoEdificioProfesion" />
+          <NavigationProperty Name="TipoProfesional" Relationship="Self.FK__Profesion__TipoP__2EDAF651" FromRole="Profesion" ToRole="TipoProfesional" />
+        </EntityType>
+        <EntityType Name="TipoProfesional">
+          <Key>
+            <PropertyRef Name="TipoProfesional_Id" />
+          </Key>
+          <Property Name="TipoProfesional_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Salario" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Profesions" Relationship="Self.FK__Profesion__TipoP__2EDAF651" FromRole="TipoProfesional" ToRole="Profesion" />
+        </EntityType>
+        <Association Name="FK__EmpleadoE__Edifi__32AB8735">
+          <End Role="Edificio" Type="Self.Edificio" Multiplicity="0..1" />
+          <End Role="EmpleadoEdificioProfesion" Type="Self.EmpleadoEdificioProfesion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Edificio">
+              <PropertyRef Name="Edificio_Id" />
+            </Principal>
+            <Dependent Role="EmpleadoEdificioProfesion">
+              <PropertyRef Name="Edificio_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmpleadoE__Emple__31B762FC">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
+          <End Role="EmpleadoEdificioProfesion" Type="Self.EmpleadoEdificioProfesion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Empleado_Id" />
+            </Principal>
+            <Dependent Role="EmpleadoEdificioProfesion">
+              <PropertyRef Name="Empleado_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmpleadoE__Profe__339FAB6E">
+          <End Role="Profesion" Type="Self.Profesion" Multiplicity="0..1" />
+          <End Role="EmpleadoEdificioProfesion" Type="Self.EmpleadoEdificioProfesion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profesion">
+              <PropertyRef Name="Profesion_Id" />
+            </Principal>
+            <Dependent Role="EmpleadoEdificioProfesion">
+              <PropertyRef Name="Profesion_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Profesion__TipoP__2EDAF651">
+          <End Role="TipoProfesional" Type="Self.TipoProfesional" Multiplicity="0..1" />
+          <End Role="Profesion" Type="Self.Profesion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoProfesional">
+              <PropertyRef Name="TipoProfesional_Id" />
+            </Principal>
+            <Dependent Role="Profesion">
+              <PropertyRef Name="TipoProfesion_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Edificios" EntityType="Self.Edificio" />
+          <EntitySet Name="Empleadoes" EntityType="Self.Empleado" />
+          <EntitySet Name="EmpleadoEdificioProfesions" EntityType="Self.EmpleadoEdificioProfesion" />
+          <EntitySet Name="Profesions" EntityType="Self.Profesion" />
+          <EntitySet Name="TipoProfesionals" EntityType="Self.TipoProfesional" />
+          <AssociationSet Name="FK__EmpleadoE__Edifi__32AB8735" Association="Self.FK__EmpleadoE__Edifi__32AB8735">
+            <End Role="Edificio" EntitySet="Edificios" />
+            <End Role="EmpleadoEdificioProfesion" EntitySet="EmpleadoEdificioProfesions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmpleadoE__Emple__31B762FC" Association="Self.FK__EmpleadoE__Emple__31B762FC">
+            <End Role="Empleado" EntitySet="Empleadoes" />
+            <End Role="EmpleadoEdificioProfesion" EntitySet="EmpleadoEdificioProfesions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmpleadoE__Profe__339FAB6E" Association="Self.FK__EmpleadoE__Profe__339FAB6E">
+            <End Role="Profesion" EntitySet="Profesions" />
+            <End Role="EmpleadoEdificioProfesion" EntitySet="EmpleadoEdificioProfesions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Profesion__TipoP__2EDAF651" Association="Self.FK__Profesion__TipoP__2EDAF651">
+            <End Role="TipoProfesional" EntitySet="TipoProfesionals" />
+            <End Role="Profesion" EntitySet="Profesions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Edificios">
+            <EntityTypeMapping TypeName="Model.Edificio">
+              <MappingFragment StoreEntitySet="Edificio">
+                <ScalarProperty Name="Edificio_Id" ColumnName="Edificio_Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empleadoes">
+            <EntityTypeMapping TypeName="Model.Empleado">
+              <MappingFragment StoreEntitySet="Empleado">
+                <ScalarProperty Name="Empleado_Id" ColumnName="Empleado_Id" />
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido1" ColumnName="Apellido1" />
+                <ScalarProperty Name="Apellido2" ColumnName="Apellido2" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="FechaSalida" ColumnName="FechaSalida" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmpleadoEdificioProfesions">
+            <EntityTypeMapping TypeName="Model.EmpleadoEdificioProfesion">
+              <MappingFragment StoreEntitySet="EmpleadoEdificioProfesion">
+                <ScalarProperty Name="Cargo_Id" ColumnName="Cargo_Id" />
+                <ScalarProperty Name="Empleado_Id" ColumnName="Empleado_Id" />
+                <ScalarProperty Name="Edificio_Id" ColumnName="Edificio_Id" />
+                <ScalarProperty Name="Profesion_Id" ColumnName="Profesion_Id" />
+                <ScalarProperty Name="IsAcenso" ColumnName="IsAcenso" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profesions">
+            <EntityTypeMapping TypeName="Model.Profesion">
+              <MappingFragment StoreEntitySet="Profesion">
+                <ScalarProperty Name="Profesion_Id" ColumnName="Profesion_Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="TipoProfesion_Id" ColumnName="TipoProfesion_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoProfesionals">
+            <EntityTypeMapping TypeName="Model.TipoProfesional">
+              <MappingFragment StoreEntitySet="TipoProfesional">
+                <ScalarProperty Name="TipoProfesional_Id" ColumnName="TipoProfesional_Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Salario" ColumnName="Salario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
