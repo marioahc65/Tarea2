@@ -28,6 +28,7 @@ namespace Tarea2
         public virtual DbSet<Edificio> Edificios { get; set; }
         public virtual DbSet<Empleado> Empleadoes { get; set; }
         public virtual DbSet<EmpleadoEdificioProfesion> EmpleadoEdificioProfesions { get; set; }
+        public virtual DbSet<Ingreso> Ingresoes { get; set; }
         public virtual DbSet<Profesion> Profesions { get; set; }
         public virtual DbSet<TipoProfesional> TipoProfesionals { get; set; }
     }

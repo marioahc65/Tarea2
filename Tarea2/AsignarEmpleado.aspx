@@ -1,10 +1,10 @@
-﻿<%@ Page Title="Pagina Principal" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Tarea2._Default" %>
+﻿<%@ Page Title="Pagina Principal" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AsignarEmpleado.aspx.cs" Inherits="Tarea2.AsignarEmpleado" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <main>
          <h2 id="title"><%: Title %>.</h2>
-        <h3>Ingreso</h3>
+        <h3>Asignar Trabajo</h3>
     <asp:Label ID="LNota" runat="server" Text="Label"></asp:Label>
     <br />
         <br />
@@ -20,8 +20,17 @@
          <asp:ListItem Value="0" Text="--Seleccione una opcion--"></asp:ListItem>
      </asp:DropDownList>
         <br />
-       
-
+        <asp:Label ID="LProfesion" runat="server" Text="Seleccione la profesión: "></asp:Label>
+    <br />
+     <asp:DropDownList ID="DDLProfesion" runat="server" AppendDataBoundItems="True" Width="203px" OnTextChanged="DDLProfesion_TextChanged">
+         <asp:ListItem Value="0" Text="--Seleccione una opcion--"></asp:ListItem>
+     </asp:DropDownList>
+         <br />
+        <asp:Label ID="Label1" runat="server" Text="Es un Ascenso Laboral? : "></asp:Label>
+    <br />
+        <asp:CheckBox ID="CBAscenso" runat="server" />
+     <br />
+     <br />
      <asp:Button ID="BTGuardar" runat="server" Text="Guardar" OnClick="BTGuardar_Click" />
     <br />
     <br />

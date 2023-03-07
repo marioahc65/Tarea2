@@ -18,6 +18,7 @@ namespace Tarea2
         public Empleado()
         {
             this.EmpleadoEdificioProfesions = new HashSet<EmpleadoEdificioProfesion>();
+            this.Ingresoes = new HashSet<Ingreso>();
         }
     
         public int Empleado_Id { get; set; }
@@ -30,5 +31,7 @@ namespace Tarea2
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmpleadoEdificioProfesion> EmpleadoEdificioProfesions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Ingreso> Ingresoes { get; set; }
     }
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="60b1ce7fe1384b7c9e1db75491cbad94" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.Edificio" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Empleado" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.EmpleadoEdificioProfesion" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Ingreso" Width="1.5" PointX="6" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Profesion" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TipoProfesional" Width="1.5" PointX="1.5" PointY="10.375" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK__EmpleadoE__Edifi__43D61337" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Ingreso__Edifici__489AC854" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__EmpleadoE__Emple__42E1EEFE" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Ingreso__Emplead__47A6A41B" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__EmpleadoE__Profe__44CA3770" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Profesion__TipoP__40058253" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

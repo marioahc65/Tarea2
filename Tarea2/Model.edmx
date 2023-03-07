@@ -35,6 +35,15 @@
           <Property Name="IsAcenso" Type="bit" Nullable="false" />
           <Property Name="Fecha" Type="date" />
         </EntityType>
+        <EntityType Name="Ingreso">
+          <Key>
+            <PropertyRef Name="Ingreso_Id" />
+          </Key>
+          <Property Name="Ingreso_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Empleado_Id" Type="int" />
+          <Property Name="Edificio_Id" Type="int" />
+          <Property Name="Fecha" Type="date" />
+        </EntityType>
         <EntityType Name="Profesion">
           <Key>
             <PropertyRef Name="Profesion_Id" />
@@ -51,7 +60,7 @@
           <Property Name="Nombre" Type="varchar(max)" />
           <Property Name="Salario" Type="money" />
         </EntityType>
-        <Association Name="FK__EmpleadoE__Edifi__32AB8735">
+        <Association Name="FK__EmpleadoE__Edifi__43D61337">
           <End Role="Edificio" Type="Self.Edificio" Multiplicity="0..1" />
           <End Role="EmpleadoEdificioProfesion" Type="Self.EmpleadoEdificioProfesion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -63,7 +72,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmpleadoE__Emple__31B762FC">
+        <Association Name="FK__EmpleadoE__Emple__42E1EEFE">
           <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
           <End Role="EmpleadoEdificioProfesion" Type="Self.EmpleadoEdificioProfesion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -75,7 +84,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmpleadoE__Profe__339FAB6E">
+        <Association Name="FK__EmpleadoE__Profe__44CA3770">
           <End Role="Profesion" Type="Self.Profesion" Multiplicity="0..1" />
           <End Role="EmpleadoEdificioProfesion" Type="Self.EmpleadoEdificioProfesion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -87,7 +96,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Profesion__TipoP__2EDAF651">
+        <Association Name="FK__Ingreso__Edifici__489AC854">
+          <End Role="Edificio" Type="Self.Edificio" Multiplicity="0..1" />
+          <End Role="Ingreso" Type="Self.Ingreso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Edificio">
+              <PropertyRef Name="Edificio_Id" />
+            </Principal>
+            <Dependent Role="Ingreso">
+              <PropertyRef Name="Edificio_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ingreso__Emplead__47A6A41B">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
+          <End Role="Ingreso" Type="Self.Ingreso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Empleado_Id" />
+            </Principal>
+            <Dependent Role="Ingreso">
+              <PropertyRef Name="Empleado_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Profesion__TipoP__40058253">
           <End Role="TipoProfesional" Type="Self.TipoProfesional" Multiplicity="0..1" />
           <End Role="Profesion" Type="Self.Profesion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -103,21 +136,30 @@
           <EntitySet Name="Edificio" EntityType="Self.Edificio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmpleadoEdificioProfesion" EntityType="Self.EmpleadoEdificioProfesion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ingreso" EntityType="Self.Ingreso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Profesion" EntityType="Self.Profesion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoProfesional" EntityType="Self.TipoProfesional" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__EmpleadoE__Edifi__32AB8735" Association="Self.FK__EmpleadoE__Edifi__32AB8735">
+          <AssociationSet Name="FK__EmpleadoE__Edifi__43D61337" Association="Self.FK__EmpleadoE__Edifi__43D61337">
             <End Role="Edificio" EntitySet="Edificio" />
             <End Role="EmpleadoEdificioProfesion" EntitySet="EmpleadoEdificioProfesion" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmpleadoE__Emple__31B762FC" Association="Self.FK__EmpleadoE__Emple__31B762FC">
+          <AssociationSet Name="FK__EmpleadoE__Emple__42E1EEFE" Association="Self.FK__EmpleadoE__Emple__42E1EEFE">
             <End Role="Empleado" EntitySet="Empleado" />
             <End Role="EmpleadoEdificioProfesion" EntitySet="EmpleadoEdificioProfesion" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmpleadoE__Profe__339FAB6E" Association="Self.FK__EmpleadoE__Profe__339FAB6E">
+          <AssociationSet Name="FK__EmpleadoE__Profe__44CA3770" Association="Self.FK__EmpleadoE__Profe__44CA3770">
             <End Role="Profesion" EntitySet="Profesion" />
             <End Role="EmpleadoEdificioProfesion" EntitySet="EmpleadoEdificioProfesion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Profesion__TipoP__2EDAF651" Association="Self.FK__Profesion__TipoP__2EDAF651">
+          <AssociationSet Name="FK__Ingreso__Edifici__489AC854" Association="Self.FK__Ingreso__Edifici__489AC854">
+            <End Role="Edificio" EntitySet="Edificio" />
+            <End Role="Ingreso" EntitySet="Ingreso" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ingreso__Emplead__47A6A41B" Association="Self.FK__Ingreso__Emplead__47A6A41B">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Ingreso" EntitySet="Ingreso" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Profesion__TipoP__40058253" Association="Self.FK__Profesion__TipoP__40058253">
             <End Role="TipoProfesional" EntitySet="TipoProfesional" />
             <End Role="Profesion" EntitySet="Profesion" />
           </AssociationSet>
@@ -133,7 +175,8 @@
           </Key>
           <Property Name="Edificio_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="EmpleadoEdificioProfesions" Relationship="Self.FK__EmpleadoE__Edifi__32AB8735" FromRole="Edificio" ToRole="EmpleadoEdificioProfesion" />
+          <NavigationProperty Name="EmpleadoEdificioProfesions" Relationship="Self.FK__EmpleadoE__Edifi__43D61337" FromRole="Edificio" ToRole="EmpleadoEdificioProfesion" />
+          <NavigationProperty Name="Ingresoes" Relationship="Self.FK__Ingreso__Edifici__489AC854" FromRole="Edificio" ToRole="Ingreso" />
         </EntityType>
         <EntityType Name="Empleado">
           <Key>
@@ -146,7 +189,8 @@
           <Property Name="Apellido2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="FechaSalida" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="EmpleadoEdificioProfesions" Relationship="Self.FK__EmpleadoE__Emple__31B762FC" FromRole="Empleado" ToRole="EmpleadoEdificioProfesion" />
+          <NavigationProperty Name="EmpleadoEdificioProfesions" Relationship="Self.FK__EmpleadoE__Emple__42E1EEFE" FromRole="Empleado" ToRole="EmpleadoEdificioProfesion" />
+          <NavigationProperty Name="Ingresoes" Relationship="Self.FK__Ingreso__Emplead__47A6A41B" FromRole="Empleado" ToRole="Ingreso" />
         </EntityType>
         <EntityType Name="EmpleadoEdificioProfesion">
           <Key>
@@ -158,9 +202,20 @@
           <Property Name="Profesion_Id" Type="Int32" />
           <Property Name="IsAcenso" Type="Boolean" Nullable="false" />
           <Property Name="Fecha" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Edificio" Relationship="Self.FK__EmpleadoE__Edifi__32AB8735" FromRole="EmpleadoEdificioProfesion" ToRole="Edificio" />
-          <NavigationProperty Name="Empleado" Relationship="Self.FK__EmpleadoE__Emple__31B762FC" FromRole="EmpleadoEdificioProfesion" ToRole="Empleado" />
-          <NavigationProperty Name="Profesion" Relationship="Self.FK__EmpleadoE__Profe__339FAB6E" FromRole="EmpleadoEdificioProfesion" ToRole="Profesion" />
+          <NavigationProperty Name="Edificio" Relationship="Self.FK__EmpleadoE__Edifi__43D61337" FromRole="EmpleadoEdificioProfesion" ToRole="Edificio" />
+          <NavigationProperty Name="Empleado" Relationship="Self.FK__EmpleadoE__Emple__42E1EEFE" FromRole="EmpleadoEdificioProfesion" ToRole="Empleado" />
+          <NavigationProperty Name="Profesion" Relationship="Self.FK__EmpleadoE__Profe__44CA3770" FromRole="EmpleadoEdificioProfesion" ToRole="Profesion" />
+        </EntityType>
+        <EntityType Name="Ingreso">
+          <Key>
+            <PropertyRef Name="Ingreso_Id" />
+          </Key>
+          <Property Name="Ingreso_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Empleado_Id" Type="Int32" />
+          <Property Name="Edificio_Id" Type="Int32" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Edificio" Relationship="Self.FK__Ingreso__Edifici__489AC854" FromRole="Ingreso" ToRole="Edificio" />
+          <NavigationProperty Name="Empleado" Relationship="Self.FK__Ingreso__Emplead__47A6A41B" FromRole="Ingreso" ToRole="Empleado" />
         </EntityType>
         <EntityType Name="Profesion">
           <Key>
@@ -169,8 +224,8 @@
           <Property Name="Profesion_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TipoProfesion_Id" Type="Int32" />
-          <NavigationProperty Name="EmpleadoEdificioProfesions" Relationship="Self.FK__EmpleadoE__Profe__339FAB6E" FromRole="Profesion" ToRole="EmpleadoEdificioProfesion" />
-          <NavigationProperty Name="TipoProfesional" Relationship="Self.FK__Profesion__TipoP__2EDAF651" FromRole="Profesion" ToRole="TipoProfesional" />
+          <NavigationProperty Name="EmpleadoEdificioProfesions" Relationship="Self.FK__EmpleadoE__Profe__44CA3770" FromRole="Profesion" ToRole="EmpleadoEdificioProfesion" />
+          <NavigationProperty Name="TipoProfesional" Relationship="Self.FK__Profesion__TipoP__40058253" FromRole="Profesion" ToRole="TipoProfesional" />
         </EntityType>
         <EntityType Name="TipoProfesional">
           <Key>
@@ -179,9 +234,9 @@
           <Property Name="TipoProfesional_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Salario" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="Profesions" Relationship="Self.FK__Profesion__TipoP__2EDAF651" FromRole="TipoProfesional" ToRole="Profesion" />
+          <NavigationProperty Name="Profesions" Relationship="Self.FK__Profesion__TipoP__40058253" FromRole="TipoProfesional" ToRole="Profesion" />
         </EntityType>
-        <Association Name="FK__EmpleadoE__Edifi__32AB8735">
+        <Association Name="FK__EmpleadoE__Edifi__43D61337">
           <End Role="Edificio" Type="Self.Edificio" Multiplicity="0..1" />
           <End Role="EmpleadoEdificioProfesion" Type="Self.EmpleadoEdificioProfesion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -193,7 +248,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmpleadoE__Emple__31B762FC">
+        <Association Name="FK__Ingreso__Edifici__489AC854">
+          <End Role="Edificio" Type="Self.Edificio" Multiplicity="0..1" />
+          <End Role="Ingreso" Type="Self.Ingreso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Edificio">
+              <PropertyRef Name="Edificio_Id" />
+            </Principal>
+            <Dependent Role="Ingreso">
+              <PropertyRef Name="Edificio_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmpleadoE__Emple__42E1EEFE">
           <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
           <End Role="EmpleadoEdificioProfesion" Type="Self.EmpleadoEdificioProfesion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -205,7 +272,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmpleadoE__Profe__339FAB6E">
+        <Association Name="FK__Ingreso__Emplead__47A6A41B">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
+          <End Role="Ingreso" Type="Self.Ingreso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Empleado_Id" />
+            </Principal>
+            <Dependent Role="Ingreso">
+              <PropertyRef Name="Empleado_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmpleadoE__Profe__44CA3770">
           <End Role="Profesion" Type="Self.Profesion" Multiplicity="0..1" />
           <End Role="EmpleadoEdificioProfesion" Type="Self.EmpleadoEdificioProfesion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -217,7 +296,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Profesion__TipoP__2EDAF651">
+        <Association Name="FK__Profesion__TipoP__40058253">
           <End Role="TipoProfesional" Type="Self.TipoProfesional" Multiplicity="0..1" />
           <End Role="Profesion" Type="Self.Profesion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -233,21 +312,30 @@
           <EntitySet Name="Edificios" EntityType="Self.Edificio" />
           <EntitySet Name="Empleadoes" EntityType="Self.Empleado" />
           <EntitySet Name="EmpleadoEdificioProfesions" EntityType="Self.EmpleadoEdificioProfesion" />
+          <EntitySet Name="Ingresoes" EntityType="Self.Ingreso" />
           <EntitySet Name="Profesions" EntityType="Self.Profesion" />
           <EntitySet Name="TipoProfesionals" EntityType="Self.TipoProfesional" />
-          <AssociationSet Name="FK__EmpleadoE__Edifi__32AB8735" Association="Self.FK__EmpleadoE__Edifi__32AB8735">
+          <AssociationSet Name="FK__EmpleadoE__Edifi__43D61337" Association="Self.FK__EmpleadoE__Edifi__43D61337">
             <End Role="Edificio" EntitySet="Edificios" />
             <End Role="EmpleadoEdificioProfesion" EntitySet="EmpleadoEdificioProfesions" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmpleadoE__Emple__31B762FC" Association="Self.FK__EmpleadoE__Emple__31B762FC">
+          <AssociationSet Name="FK__Ingreso__Edifici__489AC854" Association="Self.FK__Ingreso__Edifici__489AC854">
+            <End Role="Edificio" EntitySet="Edificios" />
+            <End Role="Ingreso" EntitySet="Ingresoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmpleadoE__Emple__42E1EEFE" Association="Self.FK__EmpleadoE__Emple__42E1EEFE">
             <End Role="Empleado" EntitySet="Empleadoes" />
             <End Role="EmpleadoEdificioProfesion" EntitySet="EmpleadoEdificioProfesions" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmpleadoE__Profe__339FAB6E" Association="Self.FK__EmpleadoE__Profe__339FAB6E">
+          <AssociationSet Name="FK__Ingreso__Emplead__47A6A41B" Association="Self.FK__Ingreso__Emplead__47A6A41B">
+            <End Role="Empleado" EntitySet="Empleadoes" />
+            <End Role="Ingreso" EntitySet="Ingresoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmpleadoE__Profe__44CA3770" Association="Self.FK__EmpleadoE__Profe__44CA3770">
             <End Role="Profesion" EntitySet="Profesions" />
             <End Role="EmpleadoEdificioProfesion" EntitySet="EmpleadoEdificioProfesions" />
           </AssociationSet>
-          <AssociationSet Name="FK__Profesion__TipoP__2EDAF651" Association="Self.FK__Profesion__TipoP__2EDAF651">
+          <AssociationSet Name="FK__Profesion__TipoP__40058253" Association="Self.FK__Profesion__TipoP__40058253">
             <End Role="TipoProfesional" EntitySet="TipoProfesionals" />
             <End Role="Profesion" EntitySet="Profesions" />
           </AssociationSet>
@@ -287,6 +375,16 @@
                 <ScalarProperty Name="Edificio_Id" ColumnName="Edificio_Id" />
                 <ScalarProperty Name="Profesion_Id" ColumnName="Profesion_Id" />
                 <ScalarProperty Name="IsAcenso" ColumnName="IsAcenso" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ingresoes">
+            <EntityTypeMapping TypeName="Model.Ingreso">
+              <MappingFragment StoreEntitySet="Ingreso">
+                <ScalarProperty Name="Ingreso_Id" ColumnName="Ingreso_Id" />
+                <ScalarProperty Name="Empleado_Id" ColumnName="Empleado_Id" />
+                <ScalarProperty Name="Edificio_Id" ColumnName="Edificio_Id" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
               </MappingFragment>
             </EntityTypeMapping>

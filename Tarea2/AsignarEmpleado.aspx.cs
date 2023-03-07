@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace Tarea2
 {
-    public partial class _Default : Page
+    public partial class AsignarEmpleado : Page
     {
         private void CargarDDL()
         {
@@ -31,26 +31,34 @@ namespace Tarea2
                 DDLEdificio.DataSource = DatosEdificios;
                 DDLEdificio.DataBind();
 
+                DDLProfesion.DataValueField = "Profesion_Id";
+                DDLProfesion.DataTextField = "Nombre";
+                DDLProfesion.DataSource = DatosProfesion;
+                DDLProfesion.DataBind();
+
 
             }
         }
 
         private void AddCargo()
         {
-            Ingreso ingreso = new Ingreso();
-            ingreso.Empleado_Id = int.Parse(DDLEmpleado.SelectedValue);
-            ingreso.Edificio_Id = int.Parse(DDLEdificio.SelectedValue);
-            ingreso.Fecha = DateTime.Now;
-
+            EmpleadoEdificioProfesion cargo = new EmpleadoEdificioProfesion();
+            cargo.Empleado_Id = int.Parse(DDLEmpleado.SelectedValue);
+            cargo.Edificio_Id = int.Parse(DDLEdificio.SelectedValue);
+            cargo.Profesion_Id = int.Parse(DDLProfesion.SelectedValue);
+            cargo.IsAcenso = CBAscenso.Checked;
+            cargo.Fecha = DateTime.Now;
 
 
             using (Entities db = new Entities())
             {
-                db.Ingresoes.Add(ingreso);
+                db.EmpleadoEdificioProfesions.Add(cargo);
                 db.SaveChanges();
 
                 DDLEmpleado.SelectedValue = null;
                 DDLEdificio.SelectedValue = null;
+                DDLProfesion.SelectedValue = null;
+                CBAscenso.Checked = false;  
             }
         }
 
@@ -58,16 +66,20 @@ namespace Tarea2
         {
             using (Entities db = new Entities())
             {
-                var Datos = (from ingreso in db.Ingresoes
+                var Datos = (from cargo in db.EmpleadoEdificioProfesions
                              join empleado in db.Empleadoes
-                             on ingreso.Empleado_Id equals empleado.Empleado_Id
+                             on cargo.Empleado_Id equals empleado.Empleado_Id
                              join edificio in db.Edificios
-                             on ingreso.Edificio_Id equals edificio.Edificio_Id
+                             on cargo.Edificio_Id equals edificio.Edificio_Id
+                             join profesion in db.Profesions
+                             on cargo.Profesion_Id equals profesion.Profesion_Id
                              select new {
-                                 Id = ingreso.Ingreso_Id,
+                                 Id = cargo.Cargo_Id,
                                  Nombre = empleado.Nombre+" "+empleado.Apellido1+ " "+ empleado.Apellido2,
                                  Edificio = edificio.Nombre,
-                                 Fecha = ingreso.Fecha
+                                 Profesion = profesion.Nombre,
+                                 Ascenco = cargo.IsAcenso,
+                                 Fecha = cargo.Fecha
                              }).ToList();
 
                 GridView1.DataSource = Datos;
@@ -89,12 +101,21 @@ namespace Tarea2
         {
             using (Entities db = new Entities())
             {
-      
+                int Empleado = int.Parse(DDLEmpleado.SelectedValue);
+                var Datos = db.EmpleadoEdificioProfesions.Where(o => o.Empleado_Id == Empleado).ToList();
 
-               
+                if(Datos.Count == 0 || CBAscenso.Checked)
+                {
                     AddCargo();
                     CargarGrid();
                     LNota.Text = "";
+                }
+                else
+                {
+                    LNota.Text = "Ups!! Ya existe este empleado con un trabajo asignado";
+                    LNota.ForeColor = Color.Red;
+                    LNota.Font.Bold = true;
+                }
 
             }
 
